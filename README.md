@@ -1,70 +1,213 @@
-# Getting Started with Create React App
+# CrudList
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CrudList is a react function components that provides CRUD functionality.
+Its purpose is just to showcase some ideas.
 
-## Available Scripts
+## Live Demo
 
-In the project directory, you can run:
+A live demo of the component is availiable at [https://react-crud.azurewebsites.net/](https://react-crud.azurewebsites.net/)
 
-### `npm start`
+## Install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Copy the crud folder into a subfolder of src.
+Dependencies:
+- React Bootstrap [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Usage
 
-### `npm test`
+## React
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+<CrudList layoutUrl=<url of the layout> />
+```
+Example:
+```
+<CrudList layoutUrl="https://crudservices.azurewebsites.net/api/layouts/category-list/api/layouts/category-list" />
+```
+## Layout Url
 
-### `npm run build`
+layoutUrl is a url that responds the list layout in json format. A simple layout example is the following:
+```
+{
+    "queryObject": "categories",
+    "caption": "Categories",    
+    "allowNew": true,
+    "allowUpdate": true,
+    "allowDelete": true,
+    "editFormUrl": "api/layouts/category-form",
+    "columns": [
+    {
+        "columnName": "id",
+        "caption": "#"
+    },
+    {
+        "columnName": "description",
+        "caption": "Description"
+    }
+    ],
+    "primaryKey": [ "id" ]
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Other list layouts can be found on the following urls:
+- [https://crudservices.azurewebsites.net/api/layouts/category-list](https://crudservices.azurewebsites.net/api/layouts/category-list)
+- [https://crudservices.azurewebsites.net/api/layouts/guitar-list](https://crudservices.azurewebsites.net/api/layouts/guitar-list)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## GraphQL endpoint
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+GrudList uses the environment variable REACT_APP_SERVER_URL.
+It sends graphQL resquests to `${process.env.REACT_APP_SERVER_URL}/api/query}`.
 
-### `npm run eject`
+For demo purposes the following variable has been declared at .env as:
+REACT_APP_SERVER_URL=https://crudservices.azurewebsites.net
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Form Layout Url
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+editFormUrl (property of list layout), is a url that responds the form layout in json format. A simple form layout example is the following:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+{
+    "queryObject": "category",
+    "caption": "Category",
+    "tabs": [
+        {
+            "caption": "Category info",
+            "columns": [
+                {
+                    "columnName": "description",
+                    "caption": "Description"
+                },
+                {
+                    "columnName": "imageUrl",
+                    "caption": "Image Url",
+                    "controlType": "ImageUrl" 
+                }
+            ]
+        }
+    ]
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Other list layouts can be found on the following urls:
+- [https://crudservices.azurewebsites.net/api/layouts/category-form](https://crudservices.azurewebsites.net/api/layouts/category-form)
+- [https://crudservices.azurewebsites.net/api/layouts/guitar-form](https://crudservices.azurewebsites.net/api/layouts/guitar-form)
 
-## Learn More
+# GraphQL examples
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The component genarates graphQL to send it at `${process.env.REACT_APP_SERVER_URL}/api/query}`.
+Query generation is based on the following properties of the layout:
+- queryObject
+- columns.columnName
+- primaryKey
+- columns.lookUpQuery (see category column of guitar-form layout)
+- columns.keyFields.foreignField
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Checking the following examples, may help you ensure about the graphQL support that your backend must provide. Singular or plural make sense!
+The demo at [https://react-crud.azurewebsites.net/](https://react-crud.azurewebsites.net/) generates the following graphQL:
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Categories retrieval
+```
+{
+  categories {
+    id
+    description
+  }
+}
+```
+- Category retrieval by id
+```
+{
+  category(id: $id) {
+    description
+    imageUrl
+    id
+  }
+}
+Variables:
+{id: 1}
+```
+- Guitars retrieval
+```
+{
+  guitars(category: $category, description: $description) {
+    description
+    price
+    isVintage
+    color
+    id
+    category {
+      description
+    }
+  }
+}
+Variables:
+{
+  description: "electric"
+}
+```
+- Guitar retrieval by id
+```
+{
+  guitar(id: $id) {
+    description
+    isVintage
+    price
+    color
+    imageUrl
+    id
+    category {
+      description
+    }
+  }
+}
+Variables:
+{
+  id: 1
+}
+```
+- Add Category
+```
+mutation addCategory($obj: Category!) {
+  addCategory(category: $obj) {
+    id
+    description
+  }
+}
+Variables:
+{
+  "obj": {
+    	"description":"New category"
+  }
+}
+```
+- Update Category
+```
+mutation updateCategory($obj: Category!) {
+  updateCategory(category: $obj) {
+    id
+    description
+    guitars {
+      description
+    }
+  }
+}
+Variables:
+{
+  "obj": {
+    	"description":"Ukuleles",
+        "id":4
+  }
+}
+```
+- Delete Category
+```
+mutation deleteCategory($obj: Category!) {
+  deleteCategory(category: $obj) 
+}
+Variables:
+{
+  "obj": {
+        "id":4
+  }
+}
+```
