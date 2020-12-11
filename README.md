@@ -1,7 +1,7 @@
 # CrudList
 
 CrudList is a react function components that provides CRUD functionality.
-Its purpose is just to showcase some ideas.
+Its purpose is to showcase some ideas.
 
 ## Live Demo
 
@@ -9,7 +9,7 @@ A live demo of the component is availiable at [https://react-crud.azurewebsites.
 
 ## Install
 
-Copy the crud folder into a subfolder of src.
+Copy the src/crud folder into the src of your project.
 Dependencies:
 - React Bootstrap [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)
 
@@ -26,7 +26,7 @@ Example:
 ```
 ## Layout Url
 
-layoutUrl is a url that responds the list layout in json format. A simple layout example is the following:
+layoutUrl is a url that must respond with the list layout in json format. A simple layout example is the following:
 ```
 {
     "queryObject": "categories",
@@ -49,7 +49,7 @@ layoutUrl is a url that responds the list layout in json format. A simple layout
 }
 ```
 
-Other list layouts can be found on the following urls:
+Other list layouts can be found at the following urls:
 - [https://crudservices.azurewebsites.net/api/layouts/category-list](https://crudservices.azurewebsites.net/api/layouts/category-list)
 - [https://crudservices.azurewebsites.net/api/layouts/guitar-list](https://crudservices.azurewebsites.net/api/layouts/guitar-list)
 
@@ -61,9 +61,11 @@ It sends graphQL resquests to `${process.env.REACT_APP_SERVER_URL}/api/query}`.
 For demo purposes the following variable has been declared at .env as:
 REACT_APP_SERVER_URL=https://crudservices.azurewebsites.net
 
+So the graphQL endpoint of the demo is the [https://crudservices.azurewebsites.net/api/query](https://crudservices.azurewebsites.net/api/query]).
+
 ## Form Layout Url
 
-editFormUrl (property of list layout), is a url that responds the form layout in json format. A simple form layout example is the following:
+editFormUrl (property of list layout), is a url that must respond with the form layout in json format. A simple form layout example is the following:
 
 ```
 {
@@ -88,7 +90,7 @@ editFormUrl (property of list layout), is a url that responds the form layout in
 }
 ```
 
-Other list layouts can be found on the following urls:
+Other form layouts can be found at the following urls:
 - [https://crudservices.azurewebsites.net/api/layouts/category-form](https://crudservices.azurewebsites.net/api/layouts/category-form)
 - [https://crudservices.azurewebsites.net/api/layouts/guitar-form](https://crudservices.azurewebsites.net/api/layouts/guitar-form)
 
@@ -102,7 +104,7 @@ Query generation is based on the following properties of the layout:
 - columns.lookUpQuery (see category column of guitar-form layout)
 - columns.keyFields.foreignField
 
-Checking the following examples, may help you ensure about the graphQL support that your backend must provide. Singular or plural make sense!
+Checking the following examples, may help you ensure about the graphQL support that your backend must provide. Singular or plural makes sense!
 The demo at [https://react-crud.azurewebsites.net/](https://react-crud.azurewebsites.net/) generates the following graphQL:
 
 - Categories retrieval
